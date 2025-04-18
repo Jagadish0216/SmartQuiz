@@ -3,32 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <title>Quiz Results - SmartQuiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    :root {
+      --primary: #4facfe;
+      --secondary: #00f2fe;
+      --dark: #2c3e50;
+      --bg: #f4f7fa;
+      --light: #ffffff;
+      --success: #2ecc71;
+      --danger: #e74c3c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #f0f4f8;
-      margin: 0;
-      padding: 40px;
+      background: var(--bg);
+      color: var(--dark);
+      animation: fadeIn 0.6s ease;
+    }
+
+    nav {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .brand {
+      font-size: 1.5em;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    nav .brand-icon {
+      margin-right: 8px;
+      font-size: 1.2em;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      transition: color 0.3s ease, transform 0.2s ease;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: #f0f0f0;
+      transform: translateY(-2px);
     }
 
     .container {
       max-width: 800px;
-      margin: auto;
-      background: #fff;
+      margin: 50px auto;
+      background: var(--light);
       padding: 40px;
-      border-radius: 10px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      animation: fadeIn 0.5s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
 
     h2 {
       text-align: center;
-      color: #2c3e50;
+      font-size: 28px;
+      margin-bottom: 20px;
     }
 
     .score {
@@ -36,83 +86,119 @@
       font-size: 22px;
       font-weight: bold;
       margin-bottom: 30px;
-      color: #27ae60;
+      color: var(--success);
     }
 
     .question-block {
       margin-bottom: 25px;
-      padding: 15px;
-      border-radius: 8px;
+      padding: 16px;
+      border-radius: 10px;
       background-color: #f9f9f9;
       border-left: 5px solid #ccc;
+      transition: background 0.3s ease;
     }
 
     .question-block.correct {
-      border-left-color: #2ecc71;
+      border-left-color: var(--success);
       background-color: #ecf9f1;
     }
 
     .question-block.incorrect {
-      border-left-color: #e74c3c;
+      border-left-color: var(--danger);
       background-color: #fcebea;
     }
 
     .question-text {
       font-weight: bold;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .answer {
-      margin: 3px 0;
-      padding: 6px 10px;
-      border-radius: 5px;
+      padding: 8px 12px;
+      margin: 4px 0;
+      border-radius: 6px;
+      transition: background 0.3s ease;
     }
 
-    .answer.selected {
+    .selected {
       font-weight: bold;
     }
 
-    .answer.correct {
-      background-color: #dff0d8;
+    .correct {
+      background-color: #d4edda;
+      border-left: 4px solid var(--success);
     }
 
-    .answer.incorrect {
+    .incorrect {
       background-color: #f8d7da;
+      border-left: 4px solid var(--danger);
     }
 
-    .back {
+    .back, .retry-section {
       text-align: center;
       margin-top: 30px;
     }
 
-    .back a {
+    .back a,
+    .retry-btn,
+    button[type="submit"] {
       text-decoration: none;
-      padding: 10px 20px;
-      background-color: #3498db;
-      color: white;
-      border-radius: 6px;
-      transition: background-color 0.3s ease;
-    }
-
-    .back a:hover {
-      background-color: #2980b9;
-    }
-    .retry-btn {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #2ecc71;
+      padding: 12px 24px;
+      background-color: var(--primary);
       color: white;
       border-radius: 8px;
-      text-decoration: none;
       font-weight: bold;
-      transition: background-color 0.3s ease;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
-    .retry-btn:hover {
+
+    .back a:hover,
+    .retry-btn:hover,
+    button[type="submit"]:hover {
+      background-color: #2980b9;
+      transform: translateY(-2px);
+    }
+
+    .retry-btn.green {
+      background-color: var(--success);
+    }
+
+    .retry-btn.green:hover {
       background-color: #27ae60;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px;
+      }
+      h2 {
+        font-size: 22px;
+      }
     }
   </style>
 </head>
 <body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="brand"><span class="brand-icon">🧠</span> SmartQuiz</div>
+    <div>
+      <a href="{% url 'dashboard' %}">📊 Dashboard</a>
+      <a href="{% url 'practice_quiz' %}">🧪 Practice</a>
+      <a href="{% url 'take_quiz' %}">📝 Quiz</a>
+      <a href="{% url 'leaderboard' %}">🏆 Leaderboard</a>
+      <a href="{% url 'user_profile' %}">👤 Profile</a>
+    </div>
+  </nav>
+
+  <!-- Content -->
   <div class="container">
     <h2>🎉 Quiz Completed!</h2>
     <div class="score">Your Score: {{ score }}/{{ results|length }}</div>
@@ -120,6 +206,7 @@
     {% for item in results %}
       <div class="question-block {% if item.is_correct %}correct{% else %}incorrect{% endif %}">
         <div class="question-text">{{ forloop.counter }}. {{ item.question.question_text }}</div>
+
         <div class="answer {% if item.selected == 'A' %}selected{% endif %} {% if item.question.correct_option == 'A' %}correct{% elif item.selected == 'A' %}incorrect{% endif %}">
           A. {{ item.question.option_a }}
         </div>
@@ -135,31 +222,25 @@
       </div>
     {% endfor %}
 
+    <div class="retry-section">
+      <a href="{% url 'take_quiz' %}" class="retry-btn">🎯 Try Another Topic</a>
+    </div>
+
+    {% if practice_mode %}
+    <div class="retry-section" style="margin-top: 20px;">
+      <form method="post" action="{% url 'practice_quiz' %}">
+        {% csrf_token %}
+        <input type="hidden" name="level" value="{{ level }}">
+        <input type="hidden" name="topic" value="{{ topic }}">
+        <button type="submit" class="retry-btn green">🔁 Retry This Practice</button>
+      </form>
+    </div>
+    {% endif %}
+
     <div class="back">
       <a href="{% url 'dashboard' %}">← Back to Dashboard</a>
     </div>
-    <div style="text-align: center; margin-top: 30px;">
-      <a href="{% url 'take_quiz' %}" class="retry-btn">🎯 Try Another Topic</a>
-    </div>
-    </div>
-    {% if practice_mode %}
-  <div style="text-align: center; margin-top: 30px;">
-    <form method="post" action="{% url 'practice_quiz' %}">
-      {% csrf_token %}
-      <input type="hidden" name="level" value="{{ level }}">
-      <input type="hidden" name="topic" value="{{ topic }}">
-      <button type="submit" style="
-        background-color: #2ecc71;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 6px;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-      ">🔁 Retry This Practice</button>
-    </form>
   </div>
-{% endif %}
 
 </body>
 </html>

@@ -3,85 +3,177 @@
 <head>
   <meta charset="UTF-8">
   <title>Select Topic - SmartQuiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    :root {
+      --primary: #4facfe;
+      --secondary: #00f2fe;
+      --bg: #f4f7fa;
+      --dark: #2c3e50;
+      --light: #ffffff;
+      --accent: #27ae60;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: #f0f4f8;
+      background-color: var(--bg);
+      color: var(--dark);
+      animation: fadeIn 0.4s ease;
+    }
+
+    nav {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 15px 30px;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      height: 100vh;
-      margin: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    nav .brand {
+      font-size: 1.5em;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    nav .brand-icon {
+      margin-right: 8px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 500;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    nav a:hover {
+      color: #f0f0f0;
+      transform: translateY(-2px);
     }
 
     .container {
-      background-color: #fff;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 500px;
-      animation: fadeIn 0.5s ease-in-out;
-      text-align: center;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: var(--light);
+      padding: 35px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     }
 
     h2 {
-      color: #2c3e50;
-      margin-bottom: 10px;
+      text-align: center;
+      font-size: 26px;
+      margin-bottom: 20px;
     }
 
-    .level {
-      font-size: 16px;
-      color: #888;
+    .level-badge {
+      display: block;
+      text-align: center;
+      background-color: var(--accent);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-weight: bold;
       margin-bottom: 25px;
+      animation: popIn 0.4s ease;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
     }
 
     select {
-      width: 100%;
-      padding: 10px;
+      padding: 12px;
       font-size: 16px;
-      margin-bottom: 20px;
-      border-radius: 6px;
+      border-radius: 8px;
       border: 1px solid #ccc;
+      background-color: #f9f9f9;
     }
 
     button {
-      padding: 12px 24px;
-      background-color: #3498db;
+      padding: 14px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
       color: white;
       font-size: 16px;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
+      font-weight: bold;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-      width: 100%;
+      transition: background 0.3s ease, transform 0.2s ease;
     }
 
     button:hover {
-      background-color: #2980b9;
+      background: linear-gradient(to right, #2980b9, #16a085);
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.85); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 25px;
+      }
     }
   </style>
 </head>
 <body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="brand"><span class="brand-icon">🧠</span> SmartQuiz</div>
+    <div>
+      <a href="{% url 'dashboard' %}">📊 Dashboard</a>
+      <a href="{% url 'practice_quiz' %}">🧪 Practice</a>
+      <a href="{% url 'take_quiz' %}">📝 Quiz</a>
+      <a href="{% url 'leaderboard' %}">🏆 Leaderboard</a>
+      <a href="{% url 'user_profile' %}">👤 Profile</a>
+    </div>
+  </nav>
+
   <div class="container">
-    <h2>🎯 Choose a Topic</h2>
-    <div class="level">Access Level: <strong>{{ level|title }}</strong></div>
+    <h2>📝 Choose a Topic</h2>
+
+    {% if level %}
+      <div class="level-badge">🎯 Current Level: {{ level }}</div>
+    {% endif %}
 
     <form method="post">
       {% csrf_token %}
-      <select name="topic" required>
+      <label for="topic">Select a Topic:</label>
+      <select name="topic" id="topic" required>
         {% for topic in topics %}
           <option value="{{ topic }}">{{ topic }}</option>
         {% endfor %}
       </select>
-      <br><br>
-      <button type="submit">Start Quiz</button>
-    </form>    
+
+      <button type="submit">▶️ Start Quiz</button>
+    </form>
   </div>
+
 </body>
 </html>

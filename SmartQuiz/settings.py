@@ -127,4 +127,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-RAPIDAPI_KEY = 'PE9DTVNciUgMiDkuV4lpuo08pyiLf0Z41uWUgLVJ'
+# Custom error handlers
+HANDLER404 = 'home.views.custom_404'
+HANDLER500 = 'home.views.custom_500'

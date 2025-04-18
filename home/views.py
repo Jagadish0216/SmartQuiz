@@ -127,37 +127,43 @@ def practice_quiz(request):
 @login_required
 def take_quiz(request):
     performance, _ = UserPerformance.objects.get_or_create(user=request.user)
-    user_level = get_user_level(performance)
+
+    # Determine user level and allowed difficulties
+    if performance.quizzes_taken < 3:
+        level = 'Beginner'
+        allowed_difficulties = [1]
+    elif performance.score / performance.quizzes_taken < 3:
+        level = 'Intermediate'
+        allowed_difficulties = [1, 2]
+    else:
+        level = 'Advanced'
+        allowed_difficulties = [1, 2, 3]
 
     if request.method == 'GET':
-        topics = Question.objects.values_list('topic', flat=True).distinct()
+        topics = Question.objects.filter(difficulty__in=allowed_difficulties)\
+                                 .values_list('topic', flat=True).distinct()
         return render(request, 'select_topic.html', {
             'topics': topics,
-            'level': user_level
+            'level': level
         })
 
+    # POST = user selected a topic to begin quiz
     selected_topic = request.POST.get('topic')
-    num_questions = 5
+    difficulty_level = max(allowed_difficulties)
 
-    potential_questions = Question.objects.filter(topic=selected_topic).annotate(
-        weighted_score=F('difficulty') + F('weight') + F('intrinsic_difficulty') - performance.difficulty_score
-    ).order_by('weighted_score')
-
-    if potential_questions.count() > num_questions:
-        questions = list(potential_questions[:num_questions])
-        random.shuffle(questions)
-    else:
-        questions = list(potential_questions)
-        random.shuffle(questions)
+    questions = Question.objects.filter(topic=selected_topic, difficulty=difficulty_level).order_by('?')[:5]
 
     if not questions:
-        messages.warning(request, f"No questions available for topic '{selected_topic}' at your current difficulty level.")
+        messages.warning(request, f"No questions available for '{selected_topic}' at difficulty level {difficulty_level}.")
         return redirect('take_quiz')
 
     return render(request, 'quiz.html', {
         'questions': questions,
-        'topic': selected_topic
+        'topic': selected_topic,
+        'practice_mode': False,
+        'level': level
     })
+
 
 @login_required
 def submit_quiz(request):

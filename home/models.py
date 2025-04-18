@@ -12,7 +12,7 @@ class Question(models.Model):
     option_d = models.CharField(max_length=100)
     correct_option = models.CharField(max_length=1)
     difficulty = models.FloatField(default=1.0)  # Use FloatField for finer control
-    topic = models.CharField(max_length=100, default="General")
+    topic =models.CharField(max_length=200, default="General")
     weight = models.FloatField(default=1.0)  # Weight for question importance/difficulty
     intrinsic_difficulty = models.FloatField(default=1.0) # Static difficulty of question
 
@@ -85,7 +85,7 @@ class QuizAttempt(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     score = models.IntegerField()
     total_questions = models.IntegerField()
-    topic = models.CharField(max_length=100, default='General')
+    topic =models.CharField(max_length=200, default='General')
     date_taken = models.DateTimeField(auto_now_add=True)
     questions = models.TextField(blank=True)  # Store question IDs
     difficulties = models.TextField(blank=True)  # Store difficulties for each question
