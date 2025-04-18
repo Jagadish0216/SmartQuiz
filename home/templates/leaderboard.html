@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Leaderboard - SmartQuiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    .leaderboard-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .leaderboard-links a {
+      text-decoration: none;
+      padding: 12px 24px;
+      font-weight: bold;
+      border-radius: 8px;
+      color: white;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .leaderboard-links a:hover {
+      transform: translateY(-2px);
+    }
+
+    .top-scores {
+      background-color: #4CAF50;
+    }
+
+    .top-scores:hover {
+      background-color: #45a049;
+    }
+
+    .most-quizzes {
+      background-color: #2196F3;
+    }
+
+    .most-quizzes:hover {
+      background-color: #1976D2;
+    }
+
+    .best-accuracy {
+      background-color: #FF9800;
+    }
+
+    .best-accuracy:hover {
+      background-color: #FB8C00;
+    }
+
+    .back-button {
+      text-align: center;
+    }
+
+    .back-button a {
+      text-decoration: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #34495e;
+      color: white;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button a:hover {
+      background-color: #2c3e50;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🏅 Choose a Leaderboard</h2>
+
+    <div class="leaderboard-links">
+      <a href="{% url 'leaderboard_top_scores' %}" class="top-scores">🏆 Top Scores</a>
+      <a href="{% url 'leaderboard_most_quizzes' %}" class="most-quizzes">📝 Most Quizzes Taken</a>
+      <a href="{% url 'leaderboard_best_accuracy' %}" class="best-accuracy">🎯 Best Accuracy</a>
+    </div>
+
+    <div class="back-button">
+      <a href="{% url 'dashboard' %}">← Back to Dashboard</a>
+    </div>
+  </div>
+</body>
+</html>

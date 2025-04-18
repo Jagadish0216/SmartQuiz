@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Generate AI Questions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      padding: 2rem;
+    }
+    h2 {
+      text-align: center;
+    }
+    form {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    select, button {
+      padding: 0.6rem;
+      margin: 0.5rem;
+    }
+    .question-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .correct {
+      color: green;
+      font-weight: bold;
+    }
+    .error {
+      color: red;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h2>🧠 Generate AI-Based Question</h2>
+
+  {% if error %}
+    <p class="error">{{ error }}</p>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    <label>Topic:</label>
+    <input type="text" name="topic" placeholder="e.g., Python, HTML" required>
+    
+    <label>Difficulty:</label>
+    <select name="difficulty" required>
+      <option value="">-- Select --</option>
+      <option value="easy">Easy</option>
+      <option value="medium">Medium</option>
+      <option value="hard">Hard</option>
+    </select>
+    
+    <div>
+      <button type="submit" name="mode" value="single">🚀 Generate 1 Question</button>
+      <button type="submit" name="mode" value="multiple">🧠 Generate 5 Questions</button>
+    </div>
+  </form>
+
+  {% for q in generated %}
+    <div class="question-card">
+      {% if q.error %}
+        <p class="error">{{ q.error }}</p>
+      {% else %}
+        <p><strong>Q:</strong> {{ q.question_text }}</p>
+        <p>A. {{ q.option_a }}</p>
+        <p>B. {{ q.option_b }}</p>
+        <p>C. {{ q.option_c }}</p>
+        <p>D. {{ q.option_d }}</p>
+        <p class="correct">✅ Correct Answer: {{ q.correct_option }}</p>
+      {% endif %}
+    </div>
+  {% endfor %}
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Results - SmartQuiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    .score {
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 30px;
+      color: #27ae60;
+    }
+
+    .question-block {
+      margin-bottom: 25px;
+      padding: 15px;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      border-left: 5px solid #ccc;
+    }
+
+    .question-block.correct {
+      border-left-color: #2ecc71;
+      background-color: #ecf9f1;
+    }
+
+    .question-block.incorrect {
+      border-left-color: #e74c3c;
+      background-color: #fcebea;
+    }
+
+    .question-text {
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .answer {
+      margin: 3px 0;
+      padding: 6px 10px;
+      border-radius: 5px;
+    }
+
+    .answer.selected {
+      font-weight: bold;
+    }
+
+    .answer.correct {
+      background-color: #dff0d8;
+    }
+
+    .answer.incorrect {
+      background-color: #f8d7da;
+    }
+
+    .back {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .back a {
+      text-decoration: none;
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    .back a:hover {
+      background-color: #2980b9;
+    }
+    .retry-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #2ecc71;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    .retry-btn:hover {
+      background-color: #27ae60;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🎉 Quiz Completed!</h2>
+    <div class="score">Your Score: {{ score }}/{{ results|length }}</div>
+
+    {% for item in results %}
+      <div class="question-block {% if item.is_correct %}correct{% else %}incorrect{% endif %}">
+        <div class="question-text">{{ forloop.counter }}. {{ item.question.question_text }}</div>
+        <div class="answer {% if item.selected == 'A' %}selected{% endif %} {% if item.question.correct_option == 'A' %}correct{% elif item.selected == 'A' %}incorrect{% endif %}">
+          A. {{ item.question.option_a }}
+        </div>
+        <div class="answer {% if item.selected == 'B' %}selected{% endif %} {% if item.question.correct_option == 'B' %}correct{% elif item.selected == 'B' %}incorrect{% endif %}">
+          B. {{ item.question.option_b }}
+        </div>
+        <div class="answer {% if item.selected == 'C' %}selected{% endif %} {% if item.question.correct_option == 'C' %}correct{% elif item.selected == 'C' %}incorrect{% endif %}">
+          C. {{ item.question.option_c }}
+        </div>
+        <div class="answer {% if item.selected == 'D' %}selected{% endif %} {% if item.question.correct_option == 'D' %}correct{% elif item.selected == 'D' %}incorrect{% endif %}">
+          D. {{ item.question.option_d }}
+        </div>
+      </div>
+    {% endfor %}
+
+    <div class="back">
+      <a href="{% url 'dashboard' %}">← Back to Dashboard</a>
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+      <a href="{% url 'take_quiz' %}" class="retry-btn">🎯 Try Another Topic</a>
+    </div>
+    </div>
+    {% if practice_mode %}
+  <div style="text-align: center; margin-top: 30px;">
+    <form method="post" action="{% url 'practice_quiz' %}">
+      {% csrf_token %}
+      <input type="hidden" name="level" value="{{ level }}">
+      <input type="hidden" name="topic" value="{{ topic }}">
+      <button type="submit" style="
+        background-color: #2ecc71;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+      ">🔁 Retry This Practice</button>
+    </form>
+  </div>
+{% endif %}
+
+</body>
+</html>

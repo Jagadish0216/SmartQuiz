@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Profile - SmartQuiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --primary: #4facfe;
+      --secondary: #00f2fe;
+      --dark: #2c3e50;
+      --bg: #f4f7fa;
+      --accent: #27ae60;
+      --warning: #f39c12;
+      --light: #ecf0f1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background-color: var(--bg);
+      color: var(--dark);
+      animation: fadeIn 0.5s ease;
+    }
+
+    nav {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .brand {
+      font-size: 1.5em;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    nav .brand-icon {
+      margin-right: 8px;
+      font-size: 1.2em;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      transition: color 0.3s ease, transform 0.2s ease;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: #f0f0f0;
+      transform: translateY(-2px);
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 35px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      animation: slideUp 0.6s ease;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+
+    .stat {
+      background-color: var(--light);
+      padding: 16px;
+      margin: 10px 0;
+      border-radius: 8px;
+      font-size: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: transform 0.3s ease;
+    }
+
+    .stat:hover {
+      transform: scale(1.02);
+    }
+
+    .stat-label {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .btn-back {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .btn-back a {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+
+    .btn-back a:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(to right, #2980b9, #16a085);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 25px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .stat {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="brand"><span class="brand-icon">🧠</span> SmartQuiz</div>
+    <div>
+      <a href="{% url 'dashboard' %}">📊 Dashboard</a>
+      <a href="{% url 'practice_quiz' %}">🧪 Practice</a>
+      <a href="{% url 'take_quiz' %}">📝 Quiz</a>
+      <a href="{% url 'leaderboard' %}">🏆 Leaderboard</a>
+      <a href="{% url 'user_profile' %}">👤 Profile</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>{{ user.username }}'s Profile</h1>
+
+    <div class="stat">
+      <span class="stat-label">Total Score:</span>
+      <span>{{ performance.score }}</span>
+    </div>
+
+    <div class="stat">
+      <span class="stat-label">Quizzes Taken:</span>
+      <span>{{ performance.quizzes_taken }}</span>
+    </div>
+
+    <div class="stat">
+      <span class="stat-label">Accuracy:</span>
+      <span>{{ accuracy }}%</span>
+    </div>
+
+    <div class="btn-back">
+      <a href="{% url 'dashboard' %}">⬅ Back to Dashboard</a>
+    </div>
+  </div>
+
+</body>
+</html>

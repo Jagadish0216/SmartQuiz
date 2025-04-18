@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Question - SmartQuiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .form-container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      width: 100%;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 25px;
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 15px;
+      display: block;
+      color: #333;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #1e8449;
+      transform: translateY(-2px);
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .back-link a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Add New Question</h2>
+    <form method="post">
+      {% csrf_token %}
+      <label>Question</label>
+      <input type="text" name="question_text" required>
+
+      <label>Option A</label>
+      <input type="text" name="option_a" required>
+
+      <label>Option B</label>
+      <input type="text" name="option_b" required>
+
+      <label>Option C</label>
+      <input type="text" name="option_c" required>
+
+      <label>Option D</label>
+      <input type="text" name="option_d" required>
+
+      <label>Correct Option (A, B, C, or D)</label>
+      <input type="text" name="correct_option" required>
+
+      <label>Difficulty</label>
+      <select name="difficulty" required>
+        <option value="1">Easy</option>
+        <option value="2">Medium</option>
+        <option value="3">Hard</option>
+      </select>
+
+      <label>Topic</label>
+      <select name="topic" required>
+        <option value="Python Basics">Python Basics</option>
+        <option value="HTML & CSS">HTML & CSS</option>
+        <option value="JavaScript Fundamentals">JavaScript Fundamentals</option>
+        <option value="Data Structures">Data Structures</option>
+        <option value="Algorithms">Algorithms</option>
+        <option value="Django">Django</option>
+        <option value="SQL & Databases">SQL & Databases</option>
+        <option value="Object-Oriented Programming">Object-Oriented Programming</option>
+        <option value="Computer Networks">Computer Networks</option>
+        <option value="Operating Systems">Operating Systems</option>
+      </select>
+
+      <button type="submit">Add Question</button>
+    </form>
+
+    <div class="back-link">
+      <a href="{% url 'manage_questions' %}">← Back to Manage Questions</a>
+    </div>
+  </div>
+</body>
+</html>

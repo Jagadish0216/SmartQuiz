@@ -1,0 +1,19 @@
+{% with topic|lower as t %}
+<span class="badge 
+  {% if "python" in t %}badge-python
+  {% elif "html" in t %}badge-html
+  {% elif "css" in t %}badge-css
+  {% elif "js" in t or "javascript" in t %}badge-js
+  {% elif "data" in t %}badge-data
+  {% elif "algo" in t or "algorithm" in t %}badge-algo
+  {% elif "django" in t %}badge-django
+  {% elif "sql" in t or "database" in t %}badge-sql
+  {% elif "oop" in t or "object" in t %}badge-oop
+  {% elif "net" in t or "network" in t %}badge-net
+  {% elif "os" in t or "operating" in t %}badge-os
+  {% else %}badge-default
+  {% endif %}
+">
+  {{ topic }}
+</span>
+{% endwith %}

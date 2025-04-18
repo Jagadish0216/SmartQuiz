@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Welcome to SmartQuiz</title>
+    <meta name="description" content="SmartQuiz: Sharpen your skills with personalized quizzes. Learn, practice, and compete.">
+    <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f7fa;
+      color: #333;
+    }
+
+    .hero {
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      color: white;
+      padding: 100px 20px;
+      text-align: center;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      margin-bottom: 0.3em;
+    }
+
+    .hero p {
+      font-size: 1.2em;
+      margin-bottom: 1.5em;
+    }
+
+    .hero a {
+      background: white;
+      color: #4facfe;
+      padding: 12px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s, color 0.3s;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+      transition: background 0.3s, color 0.3s, transform 0.2s, box-shadow 0.2s; /* Smooth transitions */
+    }
+
+    .hero a:hover {
+    background: #333;
+    color: white;
+    transform: scale(1.05); /* Slightly scale up the button */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Increase the shadow on hover */
+    }
+
+    .testimonials {
+      padding: 60px 20px;
+      background-color: white;
+      text-align: center;
+    }
+
+    .testimonial {
+      max-width: 600px;
+      margin: 20px auto;
+      font-style: italic;
+      animation: slideIn 1s ease-in-out;
+    }
+
+    .testimonial span {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    footer {
+      background: #222;
+      color: #ccc;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <h1>Welcome to SmartQuiz 🧠</h1>
+    <p>Sharpen your skills with personalized quizzes. Learn, practice, and compete.</p>
+    <a href="{% url 'login' %}">Get Started</a>
+  </div>
+
+  <div class="testimonials">
+    <h2>What our learners say</h2>
+
+    <div class="testimonial">
+      "SmartQuiz helped me prep for my coding interviews in a fun and engaging way!"
+      <span>— Priya, Computer Science Graduate</span>
+    </div>
+
+    <div class="testimonial">
+      "The practice mode and difficulty levels are exactly what I needed for daily study."
+      <span>— Arjun, Python Developer</span>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 SmartQuiz. Built for learners, by learners.
+  </footer>
+
+</body>
+</html>

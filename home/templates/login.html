@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - SmartQuiz</title>
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif; /* Consistent font */
+            background: #f4f7fa; /* Similar background color to home */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0; /* Reset margin for full height */
+        }
+
+        .form-box {
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* More subtle shadow */
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            background: #4facfe; /* Consistent button color */
+            color: white;
+            padding: 12px 30px; /* Consistent padding */
+            border: none;
+            border-radius: 30px; /* Consistent rounded corners */
+            font-size: 1em; /* Consistent font size (using em) */
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s; /* Smooth transition */
+            width: 100%; /* Full width */
+        }
+
+        button:hover {
+            background: #00f2fe; /* Slightly lighter on hover */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .link a {
+            color: #4facfe; /* Consistent link color */
+            text-decoration: none;
+        }
+
+        .link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-box">
+        <h2>Login</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label>Username</label>
+            <input type="text" name="username" required>
+
+            <label>Password</label>
+            <input type="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <div class="link">
+            Don't have an account? <a href="{% url 'register' %}">Register</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,284 @@
+{% if not questions %}
+    <p style="color: red; text-align:center; margin-top: 20px;">⚠ No questions found. Try another topic.</p>
+{% endif %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Take Quiz - SmartQuiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --primary: #4facfe;
+            --secondary: #00f2fe;
+            --dark: #2c3e50;
+            --bg: #f4f7fa;
+            --danger: #e74c3c;
+            --accent: #27ae60;
+            --warning: #f39c12;
+            --light: #ecf0f1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: var(--bg);
+            color: var(--dark);
+        }
+
+        nav {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .brand {
+            font-size: 1.5em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        nav .brand-icon {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: color 0.3s ease, transform 0.2s ease;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            animation: fadeIn 0.5s ease;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 30px;
+        }
+
+        .practice-badge {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .practice-badge span {
+            background-color: var(--warning);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .question {
+            margin-bottom: 30px;
+        }
+
+        .question p {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .question label {
+            display: block;
+            margin: 6px 0;
+            padding: 10px 15px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .question input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .question label:hover {
+            background-color: #eef4fb;
+        }
+
+        .timer-container {
+            display: none; /* Initially hidden */
+            text-align: right;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background: linear-gradient(to right, #2980b9, #16a085);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="brand"><span class="brand-icon">🧠</span> SmartQuiz</div>
+        <div>
+            <a href="{% url 'dashboard' %}">📊 Dashboard</a>
+            <a href="{% url 'practice_quiz' %}">🧪 Practice</a>
+            <a href="{% url 'take_quiz' %}">📝 Quiz</a>
+            <a href="{% url 'leaderboard' %}">🏆 Leaderboard</a>
+            <a href="{% url 'user_profile' %}">👤 Profile</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Take Quiz</h2>
+
+        {% if practice_mode %}
+            <div class="practice-badge">
+                <span>🧪 Practice Mode</span>
+            </div>
+        {% else %}
+            <div class="timer-container">
+                Time Left: <span id="timer"></span>
+            </div>
+        {% endif %}
+
+        <form method="post" action="{% url 'submit_quiz' %}" id="quiz-form">
+            {% csrf_token %}
+            {% for question in questions %}
+                <div class="question" data-question-id="{{ question.id }}">
+                    <p>Q{{ forloop.counter }}: {{ question.question_text }}</p>
+                    <label><input type="radio" name="question_{{ question.id }}" value="A" required> {{ question.option_a }}</label>
+                    <label><input type="radio" name="question_{{ question.id }}" value="B"> {{ question.option_b }}</label>
+                    <label><input type="radio" name="question_{{ question.id }}" value="C"> {{ question.option_c }}</label>
+                    <label><input type="radio" name="question_{{ question.id }}" value="D"> {{ question.option_d }}</label>
+                    <input type="hidden" name="time_{{ question.id }}" id="time_{{ question.id }}" value="">
+                </div>
+            {% endfor %}
+
+            {% if practice_mode %}
+                <input type="hidden" name="practice_mode" value="true">
+            {% endif %}
+
+            <button type="submit">Submit Quiz</button>
+        </form>
+    </div>
+
+    {% if not practice_mode and questions %}
+    <script>
+        const quizForm = document.getElementById('quiz-form');
+        const timerDisplay = document.getElementById('timer');
+        const questionsDivs = document.querySelectorAll('.question');
+        const timeInputs = {};
+        let startTime = Date.now();
+        let timerInterval;
+        const quizDuration = 5 * 60; // 5 minutes in seconds
+        let timeLeft = quizDuration;
+
+        questionsDivs.forEach(questionDiv => {
+            const questionId = questionDiv.dataset.questionId;
+            timeInputs[questionId] = questionDiv.querySelector(`#time_${questionId}`);
+        });
+
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            timeLeft--;
+
+            if (timeLeft < 0) {
+                clearInterval(timerInterval);
+                quizForm.submit();
+            }
+        }
+
+        if (timerDisplay) {
+            document.querySelector('.timer-container').style.display = 'block';
+            updateTimer();
+            timerInterval = setInterval(updateTimer, 1000);
+
+            quizForm.addEventListener('submit', function() {
+                clearInterval(timerInterval);
+                const endTime = Date.now();
+                questionsDivs.forEach(questionDiv => {
+                    const questionId = questionDiv.dataset.questionId;
+                    const startTimeForQuestion = startTime; // You might want to track time per question more accurately
+                    const timeSpent = Math.floor((endTime - startTimeForQuestion) / 1000);
+                    if (timeInputs[questionId]) {
+                        timeInputs[questionId].value = timeSpent;
+                    }
+                });
+            });
+        } else {
+            quizForm.addEventListener('submit', function() {
+                questionsDivs.forEach(questionDiv => {
+                    const questionId = questionDiv.dataset.questionId;
+                    if (timeInputs[questionId]) {
+                        timeInputs[questionId].value = 0; // If no timer, set time to 0 or handle differently
+                    }
+                });
+            });
+        }
+    </script>
+    {% endif %}
+
+</body>
+</html>

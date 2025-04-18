@@ -1,0 +1,101 @@
+question_text,option_a,option_b,option_c,option_d,correct_option,difficulty,topic
+What keyword is used to define a function in Python?,def,func,define,lambda,A,1,Python Basics
+Which data type is immutable?,List,Dictionary,Set,Tuple,D,1,Python Basics
+What symbol is used for comments?,//,#,--,/* */,B,1,Python Basics
+What is the output of len('Hello')?,4,5,6,Error,B,1,Python Basics
+Which of these is a valid variable name?,2var,var_name,var-name,var name,B,1,Python Basics
+What does `range(3)` return?,"[1,2,3]","[0,1,2]","[1,2]","[0,1,2,3]",B,1,Python Basics
+Which of the following is a boolean value?,1,0,'True',TRUE,D,1,Python Basics
+Which operator is used for exponentiation?,^,**,exp,//,B,1,Python Basics
+What is the correct file extension for Python files?,.pyn,.pt,.py,.python,C,1,Python Basics
+Which keyword is used to handle exceptions?,except,handle,error,catch,A,1,Python Basics
+What does HTML stand for?,Hyper Trainer Marking Language,Hyper Text Markup Language,Hyper Text Marketing Language,Hyperlink and Text Markup Language,B,1,HTML & CSS
+Which tag creates a hyperlink?,<a>,<link>,<href>,<url>,A,1,HTML & CSS
+What property is used to change text color in CSS?,font-color,text-color,color,fgcolor,C,1,HTML & CSS
+How do you insert an image?,<img src='image.jpg'>,<image src='image.jpg'>,<img href='image.jpg'>,<pic src='image.jpg'>,A,1,HTML & CSS
+Which tag is used for paragraphs?,<div>,<span>,<p>,<h1>,C,1,HTML & CSS
+What is the default display for a <div>?,inline,block,flex,grid,B,1,HTML & CSS
+Which selector targets all paragraphs?,#p,.p,p,*p,C,1,HTML & CSS
+Which CSS unit is relative to the parent?,px,em,%,rem,B,1,HTML & CSS
+Which attribute defines inline CSS?,class,style,css,inline,B,1,HTML & CSS
+What does the <br> tag do?,Breaks line,Bold text,Makes border,Breaks column,A,1,HTML & CSS
+Which keyword is used for class definition? (JavaScript Fundamentals Q1),class,define,struct,object,A,2,JavaScript Fundamentals
+What is the time complexity of binary search? (JavaScript Fundamentals Q2),O(n),O(log n),O(n log n),O(1),B,2,JavaScript Fundamentals
+Which SQL command is used to retrieve data? (JavaScript Fundamentals Q3),GET,SELECT,FETCH,QUERY,B,2,JavaScript Fundamentals
+Which protocol is used to transfer web pages? (JavaScript Fundamentals Q4),FTP,HTTP,SMTP,TCP,B,2,JavaScript Fundamentals
+Which OS component manages memory? (JavaScript Fundamentals Q5),Kernel,Shell,BIOS,Loader,A,2,JavaScript Fundamentals
+Which keyword is used for class definition? (JavaScript Fundamentals Q6),class,define,struct,object,A,2,JavaScript Fundamentals
+What is the time complexity of binary search? (JavaScript Fundamentals Q7),O(n),O(log n),O(n log n),O(1),B,2,JavaScript Fundamentals
+Which SQL command is used to retrieve data? (JavaScript Fundamentals Q8),GET,SELECT,FETCH,QUERY,B,2,JavaScript Fundamentals
+Which protocol is used to transfer web pages? (JavaScript Fundamentals Q9),FTP,HTTP,SMTP,TCP,B,2,JavaScript Fundamentals
+Which OS component manages memory? (JavaScript Fundamentals Q10),Kernel,Shell,BIOS,Loader,A,2,JavaScript Fundamentals
+Which keyword is used for class definition? (Data Structures Q1),class,define,struct,object,A,2,Data Structures
+What is the time complexity of binary search? (Data Structures Q2),O(n),O(log n),O(n log n),O(1),B,2,Data Structures
+Which SQL command is used to retrieve data? (Data Structures Q3),GET,SELECT,FETCH,QUERY,B,2,Data Structures
+Which protocol is used to transfer web pages? (Data Structures Q4),FTP,HTTP,SMTP,TCP,B,2,Data Structures
+Which OS component manages memory? (Data Structures Q5),Kernel,Shell,BIOS,Loader,A,2,Data Structures
+Which keyword is used for class definition? (Data Structures Q6),class,define,struct,object,A,2,Data Structures
+What is the time complexity of binary search? (Data Structures Q7),O(n),O(log n),O(n log n),O(1),B,2,Data Structures
+Which SQL command is used to retrieve data? (Data Structures Q8),GET,SELECT,FETCH,QUERY,B,2,Data Structures
+Which protocol is used to transfer web pages? (Data Structures Q9),FTP,HTTP,SMTP,TCP,B,2,Data Structures
+Which OS component manages memory? (Data Structures Q10),Kernel,Shell,BIOS,Loader,A,2,Data Structures
+Which keyword is used for class definition? (Algorithms Q1),class,define,struct,object,A,3,Algorithms
+What is the time complexity of binary search? (Algorithms Q2),O(n),O(log n),O(n log n),O(1),B,3,Algorithms
+Which SQL command is used to retrieve data? (Algorithms Q3),GET,SELECT,FETCH,QUERY,B,3,Algorithms
+Which protocol is used to transfer web pages? (Algorithms Q4),FTP,HTTP,SMTP,TCP,B,3,Algorithms
+Which OS component manages memory? (Algorithms Q5),Kernel,Shell,BIOS,Loader,A,3,Algorithms
+Which keyword is used for class definition? (Algorithms Q6),class,define,struct,object,A,3,Algorithms
+What is the time complexity of binary search? (Algorithms Q7),O(n),O(log n),O(n log n),O(1),B,3,Algorithms
+Which SQL command is used to retrieve data? (Algorithms Q8),GET,SELECT,FETCH,QUERY,B,3,Algorithms
+Which protocol is used to transfer web pages? (Algorithms Q9),FTP,HTTP,SMTP,TCP,B,3,Algorithms
+Which OS component manages memory? (Algorithms Q10),Kernel,Shell,BIOS,Loader,A,3,Algorithms
+Which keyword is used for class definition? (Django Q1),class,define,struct,object,A,3,Django
+What is the time complexity of binary search? (Django Q2),O(n),O(log n),O(n log n),O(1),B,3,Django
+Which SQL command is used to retrieve data? (Django Q3),GET,SELECT,FETCH,QUERY,B,3,Django
+Which protocol is used to transfer web pages? (Django Q4),FTP,HTTP,SMTP,TCP,B,3,Django
+Which OS component manages memory? (Django Q5),Kernel,Shell,BIOS,Loader,A,3,Django
+Which keyword is used for class definition? (Django Q6),class,define,struct,object,A,3,Django
+What is the time complexity of binary search? (Django Q7),O(n),O(log n),O(n log n),O(1),B,3,Django
+Which SQL command is used to retrieve data? (Django Q8),GET,SELECT,FETCH,QUERY,B,3,Django
+Which protocol is used to transfer web pages? (Django Q9),FTP,HTTP,SMTP,TCP,B,3,Django
+Which OS component manages memory? (Django Q10),Kernel,Shell,BIOS,Loader,A,3,Django
+Which keyword is used for class definition? (SQL & Databases Q1),class,define,struct,object,A,2,SQL & Databases
+What is the time complexity of binary search? (SQL & Databases Q2),O(n),O(log n),O(n log n),O(1),B,2,SQL & Databases
+Which SQL command is used to retrieve data? (SQL & Databases Q3),GET,SELECT,FETCH,QUERY,B,2,SQL & Databases
+Which protocol is used to transfer web pages? (SQL & Databases Q4),FTP,HTTP,SMTP,TCP,B,2,SQL & Databases
+Which OS component manages memory? (SQL & Databases Q5),Kernel,Shell,BIOS,Loader,A,2,SQL & Databases
+Which keyword is used for class definition? (SQL & Databases Q6),class,define,struct,object,A,2,SQL & Databases
+What is the time complexity of binary search? (SQL & Databases Q7),O(n),O(log n),O(n log n),O(1),B,2,SQL & Databases
+Which SQL command is used to retrieve data? (SQL & Databases Q8),GET,SELECT,FETCH,QUERY,B,2,SQL & Databases
+Which protocol is used to transfer web pages? (SQL & Databases Q9),FTP,HTTP,SMTP,TCP,B,2,SQL & Databases
+Which OS component manages memory? (SQL & Databases Q10),Kernel,Shell,BIOS,Loader,A,2,SQL & Databases
+Which keyword is used for class definition? (Object-Oriented Programming Q1),class,define,struct,object,A,3,Object-Oriented Programming
+What is the time complexity of binary search? (Object-Oriented Programming Q2),O(n),O(log n),O(n log n),O(1),B,3,Object-Oriented Programming
+Which SQL command is used to retrieve data? (Object-Oriented Programming Q3),GET,SELECT,FETCH,QUERY,B,3,Object-Oriented Programming
+Which protocol is used to transfer web pages? (Object-Oriented Programming Q4),FTP,HTTP,SMTP,TCP,B,3,Object-Oriented Programming
+Which OS component manages memory? (Object-Oriented Programming Q5),Kernel,Shell,BIOS,Loader,A,3,Object-Oriented Programming
+Which keyword is used for class definition? (Object-Oriented Programming Q6),class,define,struct,object,A,3,Object-Oriented Programming
+What is the time complexity of binary search? (Object-Oriented Programming Q7),O(n),O(log n),O(n log n),O(1),B,3,Object-Oriented Programming
+Which SQL command is used to retrieve data? (Object-Oriented Programming Q8),GET,SELECT,FETCH,QUERY,B,3,Object-Oriented Programming
+Which protocol is used to transfer web pages? (Object-Oriented Programming Q9),FTP,HTTP,SMTP,TCP,B,3,Object-Oriented Programming
+Which OS component manages memory? (Object-Oriented Programming Q10),Kernel,Shell,BIOS,Loader,A,3,Object-Oriented Programming
+Which keyword is used for class definition? (Computer Networks Q1),class,define,struct,object,A,3,Computer Networks
+What is the time complexity of binary search? (Computer Networks Q2),O(n),O(log n),O(n log n),O(1),B,3,Computer Networks
+Which SQL command is used to retrieve data? (Computer Networks Q3),GET,SELECT,FETCH,QUERY,B,3,Computer Networks
+Which protocol is used to transfer web pages? (Computer Networks Q4),FTP,HTTP,SMTP,TCP,B,3,Computer Networks
+Which OS component manages memory? (Computer Networks Q5),Kernel,Shell,BIOS,Loader,A,3,Computer Networks
+Which keyword is used for class definition? (Computer Networks Q6),class,define,struct,object,A,3,Computer Networks
+What is the time complexity of binary search? (Computer Networks Q7),O(n),O(log n),O(n log n),O(1),B,3,Computer Networks
+Which SQL command is used to retrieve data? (Computer Networks Q8),GET,SELECT,FETCH,QUERY,B,3,Computer Networks
+Which protocol is used to transfer web pages? (Computer Networks Q9),FTP,HTTP,SMTP,TCP,B,3,Computer Networks
+Which OS component manages memory? (Computer Networks Q10),Kernel,Shell,BIOS,Loader,A,3,Computer Networks
+Which keyword is used for class definition? (Operating Systems Q1),class,define,struct,object,A,3,Operating Systems
+What is the time complexity of binary search? (Operating Systems Q2),O(n),O(log n),O(n log n),O(1),B,3,Operating Systems
+Which SQL command is used to retrieve data? (Operating Systems Q3),GET,SELECT,FETCH,QUERY,B,3,Operating Systems
+Which protocol is used to transfer web pages? (Operating Systems Q4),FTP,HTTP,SMTP,TCP,B,3,Operating Systems
+Which OS component manages memory? (Operating Systems Q5),Kernel,Shell,BIOS,Loader,A,3,Operating Systems
+Which keyword is used for class definition? (Operating Systems Q6),class,define,struct,object,A,3,Operating Systems
+What is the time complexity of binary search? (Operating Systems Q7),O(n),O(log n),O(n log n),O(1),B,3,Operating Systems
+Which SQL command is used to retrieve data? (Operating Systems Q8),GET,SELECT,FETCH,QUERY,B,3,Operating Systems
+Which protocol is used to transfer web pages? (Operating Systems Q9),FTP,HTTP,SMTP,TCP,B,3,Operating Systems
+Which OS component manages memory? (Operating Systems Q10),Kernel,Shell,BIOS,Loader,A,3,Operating Systems

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - SmartQuiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --primary: #4facfe;
+            --secondary: #00f2fe;
+            --dark: #2c3e50;
+            --bg: #f4f7fa;
+            --light: #ecf0f1;
+            --accent: #27ae60;
+            --danger: #e74c3c;
+            --text: #333;
+            --card-bg: #ffffff;
+        }
+
+        body.dark-mode {
+            --bg: #1e1e2f;
+            --light: #2b2c3b;
+            --text: #f1f1f1;
+            --card-bg: #2c2c3e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .brand {
+            font-size: 1.5em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        nav .brand-icon {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: color 0.3s ease, transform 0.2s ease;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .dashboard-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            animation: slideUp 0.6s ease;
+            transition: background-color 0.3s ease;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .welcome-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        h2 {
+            font-size: 32px;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .user-level {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .badge-level {
+            padding: 8px 16px;
+            font-size: 14px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 20px;
+            font-weight: bold;
+            animation: popIn 0.4s ease;
+        }
+
+        .streak-badge {
+            background-color: var(--accent);
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .streak-flame {
+            margin-right: 10px;
+            font-size: 1.5em;
+        }
+
+        .progress-container {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--light);
+            border-radius: 12px;
+            padding: 20px;
+            margin-left: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease;
+        }
+
+        .progress-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .progress-bar-container {
+            height: 20px;
+            background-color: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 10px;
+            animation: fillBar 1s ease forwards;
+        }
+
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-top: 6px;
+            color: var(--text);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background-color: var(--light);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .action-section {
+            margin: 40px 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 8px;
+            color: var(--text);
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 16px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn i {
+            margin-right: 10px;
+        }
+
+        .btn-quiz {
+            background-color: var(--primary);
+        }
+
+        .btn-practice {
+            background-color: #3498db;
+        }
+
+        .btn-profile {
+            background-color: #9b59b6;
+        }
+
+        .btn-leader {
+            background-color: var(--accent);
+        }
+
+        .btn-history {
+            background-color: #06446e;
+        }
+
+        .recent-activity,
+        .quick-tips {
+            background-color: var(--light);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            transition: background-color 0.3s ease;
+        }
+
+        .activity-title,
+        .tips-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .activity-empty {
+            color: #666;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .tips-content {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text);
+        }
+
+        .logout-section {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--light);
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-link {
+            color: var(--danger);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--danger);
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .logout-link:hover {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fillBar {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(39, 174, 96, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(39, 174, 96, 0);
+            }
+        }
+
+        .toggle {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+            margin-left: 20px;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            border-radius: 34px;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            border-radius: 50%;
+            transition: 0.4s;
+        }
+
+        input:checked + .slider {
+            background-color: #27ae60;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-header {
+                flex-direction: column;
+            }
+
+            .progress-container {
+                margin-left: 0;
+                margin-top: 20px;
+                width: 100%;
+            }
+
+            .buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            function setTheme(theme) {
+                try {
+                    localStorage.setItem('theme', theme);
+                } catch (e) {
+                    console.error("Local storage error:", e);
+                }
+            }
+
+            function getTheme() {
+                try {
+                    return localStorage.getItem('theme');
+                } catch (e) {
+                    console.error("Local storage error:", e);
+                    return null;
+                }
+            }
+
+            // Load saved theme
+            const currentTheme = getTheme();
+            console.log("Current theme:", currentTheme);
+            if (currentTheme === 'dark') {
+                body.classList.add('dark-mode');
+                toggle.checked = true;
+            }
+
+            toggle.addEventListener('change', () => {
+                const newTheme = body.classList.contains('dark-mode') ? 'light' : 'dark';
+                console.log("Toggle changed, new theme:", newTheme);
+                body.classList.toggle('dark-mode');
+                setTheme(newTheme);
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+
+    <nav>
+        <div class="brand"><span class="brand-icon">🧠</span> SmartQuiz</div>
+        <div>
+            <a href="{% url 'dashboard' %}">📊 Dashboard</a>
+            <a href="{% url 'practice_quiz' %}">🧪 Practice</a>
+            <a href="{% url 'take_quiz' %}">📝 Quiz</a>
+            <a href="{% url 'leaderboard' %}">🏆 Leaderboard</a>
+            <a href="{% url 'user_profile' %}">👤 Profile</a>
+            <label class="toggle">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <div class="welcome-section">
+                <h2>Welcome, {{ user.username }}!</h2>
+                <div class="user-level">
+                    {% if level %}
+                    <span class="badge-level">🎯 Level: {{ level }}</span>
+                    {% endif %}
+                    {% if streak %}
+                    <span class="streak-badge"><span class="streak-flame" title="Streak Fire">🔥</span> {{ streak }}
+                        Day{{ streak|pluralize }} Streak</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-title">Level Progress</div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: {{ level_progress_percent }}%;"></div>
+                </div>
+                <div class="progress-labels">
+                    <span>Beginner</span>
+                    <span>Intermediate</span>
+                    <span>Advanced</span>
+                </div>
+                <div class="progress-labels" style="justify-content: space-around; margin-top: 3px;">
+                    <span style="color: #666;">(0 - 1.5)</span>
+                    <span style="color: #666;">(1.5 - 2.5)</span>
+                    <span style="color: #666;">(2.5 - 3.0)</span>
+                </div>
+            </div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+              <div class="stat-icon" title="Total Score">📊</div>
+              <div class="stat-value">{{ performance.score }}</div>
+              <div class="stat-label">Total Score</div>
+          </div>
+          <div class="stat-card">
+              <div class="stat-icon" title="Quizzes Taken">🎯</div>
+              <div class="stat-value">{{ performance.quizzes_taken }}</div>
+              <div class="stat-label">Quizzes Taken</div>
+          </div>
+          <div class="stat-card">
+              <div class="stat-icon" title="Average Score">📈</div>
+              <div class="stat-value">
+                  {% if performance.quizzes_taken > 0 %}
+                  {% widthratio performance.score performance.quizzes_taken 1 %}
+                  {% else %}
+                  0
+                  {% endif %}
+              </div>
+              <div class="stat-label">Avg. Score</div>
+          </div>
+          <div class="stat-card">
+              <div class="stat-icon" title="Practice Streak">🔥</div>
+              <div class="stat-value">{{ streak|default:0 }}</div>
+              <div class="stat-label">Day Streak</div>
+          </div>
+      </div>
+
+      <div class="action-section">
+          <h3 class="section-title">Quick Actions</h3>
+          <div class="buttons">
+              <a href="{% url 'take_quiz' %}" class="btn btn-quiz"><i title="Take Quiz">📝</i> Take Quiz</a>
+              <a href="{% url 'practice_quiz' %}" class="btn btn-practice"><i title="Practice Mode">🧪</i> Practice</a>
+              <a href="{% url 'user_profile' %}" class="btn btn-profile"><i title="Profile">👤</i> My Profile</a>
+              <a href="{% url 'leaderboard' %}" class="btn btn-leader"><i title="Leaderboard">🏆</i> Leaderboard</a>
+              <a href="{% url 'quiz_history' %}" class="btn btn-history"><i title="History">📚</i> History</a>
+          </div>
+      </div>
+
+      <div class="recent-activity">
+          <div class="activity-title">Recent Activity</div>
+          {% if last_attempt %}
+          <p>Your last quiz was on <strong>{{ last_attempt.topic }}</strong> on
+              {{ last_attempt.date_taken|date:"F j, Y" }} with a score of
+              {{ last_attempt.score }}/{{ last_attempt.total_questions }}</p>
+          {% else %}
+          <p class="activity-empty">No recent quiz activity. Take your first quiz today!</p>
+          {% endif %}
+      </div>
+
+      <div class="quick-tips">
+          <div class="tips-title">💡 Quick Tip</div>
+          <div class="tips-content">
+              Practice regularly to improve your quiz scores. The more consistent you are, the higher your streak will
+              grow!
+          </div>
+      </div>
+
+      <div class="logout-section">
+          <a href="{% url 'logout' %}" class="logout-link">🚪 Logout</a>
+      </div>
+  </div>
+</body>
+
+</html>
